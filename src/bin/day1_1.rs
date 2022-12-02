@@ -3,7 +3,9 @@ fn main() {
 
     let lines = input.split("\n\n");
 
-    let linesParse: Option<u32> = lines.map(|line|line.split("\n").flat_map(|num|num.parse::<u32>()).sum::<u32>()).max();
+    let mut linesParse: Vec<u32> = lines.map(|line|line.split("\n").flat_map(|num|num.parse::<u32>()).sum::<u32>()).collect();
 
-    println!("{:?}", linesParse);
+    linesParse.sort_by(|a,b|b.cmp(a));
+    
+    println!("{:?}", linesParse.iter().take(3).sum::<u32>());
 }
