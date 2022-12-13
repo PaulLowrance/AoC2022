@@ -1,5 +1,5 @@
 fn main() {
-    let input: &str = include_str!("./day1_1_input.txt");
+    let input: &str = include_str!("../../inputs/day1.prod");
 
     let lines = input.split("\n\n");
 

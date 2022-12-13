@@ -1,5 +1,5 @@
 fn main() {
-    let input = include_str!("./day6.prod");
+    let input = include_str!("../../inputs/day6.prod");
     let part_one_solution = part_one(input);
     println!("Part One Solution: {part_one_solution}");
     let part_two_solution = part_two(input);

@@ -1,5 +1,5 @@
 fn main() {
-    let input = include_str!("./day5.prod");
+    let input = include_str!("../../inputs/day5.prod");
 
     let parsed_input = parse_input(input);
     let p1_result = part_one(&parsed_input);

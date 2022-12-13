@@ -16,7 +16,7 @@ pub enum HandResult {
 }
 
 fn main() {
-    let input: &str = include_str!("./day2_input.txt");
+    let input: &str = include_str!("../../inputs/day2.prod");
     let lines = input.split('\n');
     let mut total = 0;
 

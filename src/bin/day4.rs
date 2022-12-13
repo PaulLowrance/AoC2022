@@ -1,5 +1,5 @@
 fn main() {
-    let input = include_str!("./day4_input.prod");
+    let input = include_str!("../../inputs/day4.prod");
     let part_one = input.lines().map(|line| {
         let (left, right) = line.split_once(',').unwrap();
         let ((a,b),(c,d)) = (left.split_once('-').unwrap(), right.split_once('-').unwrap());

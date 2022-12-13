@@ -1,7 +1,7 @@
 use std::{collections::HashMap, path::PathBuf};
 
 fn main() {
-    let input = include_str!("./day7.prod");
+    let input = include_str!("../../inputs/day7.prod");
     let p1_result = part_one(input);
     let p2_result = part_two(input);
 
