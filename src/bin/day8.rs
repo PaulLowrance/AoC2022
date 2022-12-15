@@ -4,13 +4,39 @@ fn main() {
     let input = include_str!("../../inputs/day8.prod");
     let grid = input.lines().map(|l| l.chars().filter_map(|c| c.to_digit(10)).collect()).collect();
 
-    let part_one_result = part_one(grid);
+    let part_one_result = part_one(&grid);
+    let part_two_result = part_two(&grid);
 
 
     println!("Part One Result: {part_one_result}");
+    println!("Part Two Result: {part_two_result}");
 }
 
-fn part_one(grid: Vec<Vec<u32>>) -> usize {
+fn part_two(grid: &Vec<Vec<u32>>) -> usize {
+    let length = &grid.len();
+
+    let result = (1..length - 1)
+        .cartesian_product(1..length - 1)
+        .map(|(x, y)| {
+            let height = grid[y][x];
+            directions(&grid, x, y)
+                .iter()
+                .map(|dir| {
+                    dir
+                        .iter()
+                        .position(|h| *h >= height)
+                        .map(|p| p + 1)
+                        .unwrap_or_else(|| dir.len())
+                })
+                .product::<usize>()
+        })
+        .max()
+        .unwrap();
+
+    return result;
+}
+
+fn part_one(grid: &Vec<Vec<u32>>) -> usize {
     let length = grid.len();
 
     let result = (1..length - 1)
