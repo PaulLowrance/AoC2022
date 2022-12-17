@@ -39,13 +39,46 @@ fn main() {
         instructions.push(Instruction{direction, distance});
     }
 
-    let part_one_result = part_one(instructions);
-
+    let part_one_result = part_one(&instructions);
+    let part_two_result = part_two(&instructions);
 
     println!("Part One Solution: {part_one_result}");
+    println!("Part Two Solution: {part_two_result}");
 }
 
-fn part_one(instructions: Vec<Instruction>) -> usize {
+fn part_two(instructions: &Vec<Instruction>) -> usize {
+    let mut start = Coord {x: 0, y:0};
+    let mut rope = vec![start; 10];
+    let mut seen = HashSet::new();
+    seen.insert(start);
+
+    for instruction in instructions {
+        for _ in 0..instruction.distance {
+            match instruction.direction {
+                Direction::Up => rope[0].y -= 1,
+                Direction::Down => rope[0].y += 1,
+                Direction::Left => rope[0].x -= 1,
+                Direction::Right => rope[0].x += 1,
+            };
+
+            for (head_idx, tail_idx) in (0..rope.len()).tuple_windows() {
+                let diff = Coord {
+                    x: rope[head_idx].x - rope[tail_idx].x,
+                    y: rope[head_idx].y - rope[tail_idx].y,
+                };
+                if diff.x.abs() > 1 || diff.y.abs() > 1 {
+                    rope[tail_idx].x += diff.x.signum();
+                    rope[tail_idx].y += diff.y.signum();
+                    if tail_idx == rope.len() - 1 {
+                        seen.insert(rope[rope.len() - 1]);
+                    }
+                }
+            }
+        }
+    }
+    return seen.len();
+}
+fn part_one(instructions: &Vec<Instruction>) -> usize {
     let mut head = Coord {x: 0, y:0};
     let mut tail = Coord {x: 0, y:0};
     let mut seen = HashSet::new();
