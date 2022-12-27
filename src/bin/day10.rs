@@ -10,9 +10,47 @@ fn main() {
     let lines = include_str!("../../inputs/day10.prod").lines();
 
     let part_one_solution = part_one(lines);
+    let part_two_solution = part_two(lines);
 
     println!("Part One: {part_one_solution}");
+    println!("Part Two: {part_two_solution}");
 
+}
+
+const COLS: usize = 40;
+const ROWS: usize = 6;
+const SPRITE_WIDTH: u32 = 3;
+
+fn part_two(lines: :Lines) {
+    let mut x = 1;
+    let mut cycle = 1;
+    let mut screen = [' '; COLS * ROWS];
+
+    for line in lines {
+        screen[cycle - 1] = get_pixel(cycle, x);
+        cycle += 1;
+
+        if let Some(("addx", num)) = line.split_once(' ') {
+            screen[cycle - 1] = get_pixel(cycle, x);
+            cycle += 1;
+            let num: i32 = num.parse().unwrap();
+            x += num;
+        }
+        return screen
+            .chunks(COLS)
+            .map(|row| row.iter().collect())
+            .collect::<Vec<String>>()
+            .join('/n');
+    }
+}
+
+fn get_pixel(cycle: usize, x: i32) -> char {
+    let curr_col = (cycle - 1) % COLS;
+    if(curr_col as i32).abs_diff(x) <= SPRITE_WIDTH / 2 {
+        return '*';
+    } else {
+        return '.';
+    }
 }
 
 fn part_one(lines: Lines) -> i32 {
