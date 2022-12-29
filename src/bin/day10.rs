@@ -7,13 +7,13 @@ struct CycleSegment {
 }
 
 fn main() {
-    let lines = include_str!("../../inputs/day10.prod").lines();
+    let lines = include_str!("../../inputs/day10.prod");
 
     let part_one_solution = part_one(lines);
     let part_two_solution = part_two(lines);
 
-    println!("Part One: {part_one_solution}");
-    println!("Part Two: {part_two_solution}");
+    println!("Part One:\n{part_one_solution}");
+    println!("Part Two:\n{part_two_solution}");
 
 }
 
@@ -21,12 +21,12 @@ const COLS: usize = 40;
 const ROWS: usize = 6;
 const SPRITE_WIDTH: u32 = 3;
 
-fn part_two(lines: :Lines) {
+fn part_two(lines: &str) -> String {
     let mut x = 1;
     let mut cycle = 1;
     let mut screen = [' '; COLS * ROWS];
 
-    for line in lines {
+    for line in lines.lines() {
         screen[cycle - 1] = get_pixel(cycle, x);
         cycle += 1;
 
@@ -36,12 +36,14 @@ fn part_two(lines: :Lines) {
             let num: i32 = num.parse().unwrap();
             x += num;
         }
-        return screen
-            .chunks(COLS)
-            .map(|row| row.iter().collect())
-            .collect::<Vec<String>>()
-            .join('/n');
     }
+    let image = screen
+        .chunks(COLS)
+        .map(|row| row.iter().collect())
+        .collect::<Vec<String>>()
+        .join("\n");
+
+    return image;
 }
 
 fn get_pixel(cycle: usize, x: i32) -> char {
@@ -53,13 +55,13 @@ fn get_pixel(cycle: usize, x: i32) -> char {
     }
 }
 
-fn part_one(lines: Lines) -> i32 {
+fn part_one(lines: &str) -> i32 {
     let mut cycle_count = 0;
     let mut x_reg_total = 1;
     //let mut total_count = 0;
     let mut cycle_vals = Vec::new();
 
-    for line in lines {
+    for line in lines.lines() {
         //total_count += 1;
         //println!("Processing: {line} - count {total_count}");
         //println!("Cycle Count: {cycle_count}, Register Total: {x_reg_total}");
